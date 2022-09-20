@@ -11,4 +11,8 @@ RSpec.describe Market do
   it 'exists and has readable attributes' do 
     expect(@market).to be_instance_of(Market)
   end
+
+  it 'has a name' do 
+    expect(@market.name).to eq("South Pearl Street Farmers Market")
+  end
 end
