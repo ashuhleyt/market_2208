@@ -2,6 +2,7 @@ require 'rspec'
 require './lib/item'
 require './lib/vendor'
 require './lib/market'
+require 'date'
 
 RSpec.describe Market do 
   before(:each) do 
@@ -13,6 +14,7 @@ RSpec.describe Market do
     @item2 = Item.new({name: 'Tomato', price: "$0.50"})
     @item3 = Item.new({name: "Peach-Raspberry Nice Cream", price: "$5.30"})
     @item4 = Item.new({name: "Banana Nice Cream", price: "$4.25"})
+    @item5 = Item.new({name: 'Onion', price: '$0.25'})
   end
 
   it 'exists and has readable attributes' do 
@@ -105,5 +107,9 @@ RSpec.describe Market do
     @vendor3.stock(@item3, 10)
 
     expect(@market.sorted_item_list).to eq(["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"])
+  end
+
+  it 'can list dates for the market' do 
+    expect(@market.date).to eq("20/09/2022")
   end
 end

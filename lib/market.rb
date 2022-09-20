@@ -1,6 +1,7 @@
 class Market 
   attr_reader :name, 
               :vendors
+              
 
   def initialize(name) 
     @name = name
@@ -50,5 +51,12 @@ class Market
     total_inventory.keys.map do |item|
       item.name
     end.sort
+  end
+
+  def date 
+    # date = Date.new.to_s
+    # "#{date[8..9]}/#{date[5..6]}/#{date[0..3]}"
+
+    Date.today.strftime "%d/%m/%Y".to_s
   end
 end
