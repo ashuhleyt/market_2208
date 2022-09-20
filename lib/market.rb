@@ -37,9 +37,11 @@ class Market
 
   def overstocked_items#sold by more than 1 vendor AND the total quantity is greater than 50.
   #  total_inventory...... need to go through it and return count and who 
-  #it is sold by.
-  total_inventory.select do |item, quantity|
-     #item, details?
-    #quantity[:quantity...???]
+  #it is sold by more than one time.
+    total_inventory.select do |item, details| #item, details?
+      details[:quantity] > 50 && details[:vendors].length > 1
+      #  require 'pry'; binding.pry
+       #currently returning every item. but I am closer than i was. 
+    end 
   end
 end
