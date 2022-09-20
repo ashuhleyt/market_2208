@@ -17,5 +17,7 @@ class Vendor
 
   def potential_revenue 
     @inventory.sum {|item, quantity| item.price * quantity}
+    # @inventory.map {|item, quantity| item.price * quantity}.sum
+    #summing the returned array from the map method. 
   end
 end

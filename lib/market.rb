@@ -14,34 +14,41 @@ class Market
   def vendor_names
     names = @vendors.map { |vendor| vendor.name} #proud i've
     #become more comfy with using curly brackets! 
+    #vendors.map(&:name)
   end
 
   def vendors_that_sell(items)
     @vendors.select { |vendor| vendor.inventory.include?(items)}
+    #@vendors.reject do |vendor|
+      # vendor.inventory.keys.include?(item) = false
+    # end
   end
 
   def total_inventory
    total_inventory = Hash.new(0)
-    @vendors.each do |vendor| #returns vendors and their items
-      # require 'pry'; binding.pry
-      vendor.inventory.each do |item, amount| #goes over their items and amounts
-        if total_inventory.keys.include?(item) #confirms their keys hold the details of item
+    @vendors.each do |vendor| 
+      vendor.inventory.each do |item, amount| 
+        if total_inventory.keys.include?(item) 
           total_inventory[item][:quantity] += amount
-        else #THIS TOOK ME SO LONG I AM SO PROUD
+        else 
           total_inventory[item] = {quantity: amount, vendors: vendors_that_sell(item)}
         end
-      end#originally had total_inventory returning on line 33, was throwing an error.  
+      end 
     end 
-    total_inventory #i hate hashes. 
+    total_inventory 
   end
 
-  def overstocked_items#sold by more than 1 vendor AND the total quantity is greater than 50.
-  #  total_inventory...... need to go through it and return count and who 
-  #it is sold by more than one time.
-    total_inventory.select do |item, details| #item, details?
-      details[:quantity] > 50 && details[:vendors].length > 1
-      #  require 'pry'; binding.pry
-       #currently returning every item. but I am closer than i was. 
-    end 
+  def overstocked_items
+    #overstock = total_inventory select yada
+    total_inventory.select do |item, details| 
+      details[:quantity] > 50 && details[:vendors].length >= 2
+    end.keys 
+    #overstock.keys 
+  end
+
+  def sorted_item_list #what methods give me the item names, total inventory hash. 
+    total_inventory.keys.map do |item|
+      item.name
+    end.sort
   end
 end
